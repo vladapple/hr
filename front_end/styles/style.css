@@ -1,0 +1,84 @@
+body{
+    background-color: black;
+    color:white;
+    text-align: center;
+}
+
+header{
+    background-color:dimgrey ;
+    margin-bottom:70px;
+}
+li{
+    display:inline-block;
+    margin:10px;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+
+li:hover, a:hover{
+    color:lightseagreen;
+}
+
+h2, p{
+    color:lightseagreen;
+}
+
+#registerE, #registerD, #registerP, #registerS{
+    display: none;
+}
+
+#fetchE, #fetchD, #fetchP, #fetchS{
+    display: none;
+}
+
+#updateE, #updateD, #updateP, #updateS{
+    display: none;
+}
+
+#deleteE, #deleteD, #deleteP, #deleteS{
+    display: none;
+}
+
+input{
+    margin: 5px;
+    border-radius: 5px;
+    height:30px;
+    width: 370px;
+}
+
+select{
+    margin: 5px;
+    height:30px;
+    width: 115px;
+}
+
+.button{
+    padding:10px;
+    border-radius: 5px;
+    height:40px;
+    width: 380px;
+    background-color:lightseagreen ;
+    color:white;
+}
+.button:hover{
+    background-color:aqua ;
+}
+
+td, tr, th{
+    text-align: center;
+    border: 1px solid lightseagreen;
+}
+
+table{
+    margin-left: 30%;
+    width:50%;
+}
+
+footer{
+    background-color:dimgrey ;
+    margin-top:480px;
+    height:50px;
+}

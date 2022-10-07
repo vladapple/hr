@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Human Resources</title>
+</head>
+<body onload="displayMenu('home', 'register', 'search', 'update', 'delete');">
+    <header>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li onclick="displayMenu('register', 'search', 'update', 'delete', 'home');">register</li>
+            <li onclick="displayMenu('search', 'register', 'update', 'delete', 'home');">search</li>
+            <li onclick="displayMenu('update', 'register', 'search', 'delete', 'home');">update</li>
+            <li onclick="displayMenu('delete', 'register', 'search', 'update', 'home');">delete</li>
+        </ul>
+    </header>
+
+    <section id="home">
+        <h2>Welcome to HR Module</h2>
+        <p>This module is designed for Human Resourses Department to manage HR data.</p>
+    </section>
+
+    <section id="register">
+        <h2>Registration:</h2>
+        <ul>
+            <li onclick="display('registerE', 'registerD', 'registerP', 'registerS');">employees</li>
+            <li onclick="display('registerD', 'registerE', 'registerP', 'registerS');">departments</li>
+            <li onclick="display('registerP', 'registerE', 'registerD', 'registerS');">positions</li>
+            <li onclick="display('registerS', 'registerE', 'registerD', 'registerP');">seniority levels</li>
+        </ul>
+
+        <div id="registerE">
+                <p>Employee</p>
+                <input type="text"  name="firstname" id="firstname" placeholder="First Name *" required><br/>   
+                <input type="text"  name="lastname" id="lastname" placeholder="Last Name *" required><br/>
+                <input type="text"  name="startDate" id="startDate" placeholder="Start Date dd-mm-yyyy" required> <br/>
+                <input type="text"  name="address" id="address" placeholder="Address *" required><br/>
+                <input type="text"  name="phone" id="phone" placeholder="Phone xxx-xxx-xxxx *" required><br/>
+                <select id="departmentId" name="departmentId">
+                    <option value="1">ON-DEPT</option>
+                    <option value="2">QC-DEPT</option>
+                    <option value="3">BC-DEPT</option>
+                </select>
+                <select id="positionId" name="positionId">
+                    <option value="1">Accountant</option>
+                    <option value="2">Java Developer</option>
+                    <option value="3">Manager</option>
+                </select>
+                <select id="seniorityId" name="seniorityId">
+                    <option value="1">Junior-Level</option>
+                    <option value="2">Mid-Level</option>
+                    <option value="3">Senior-Level</option>
+                </select><br/><br/>
+                <button  class="button" onclick="createEmployee();">Register</button>
+                <br />
+
+                <p id="employeeCreated"></p>
+        </div>
+
+        <div id="registerD">
+            <p>Department</p>
+            <input type="text"  name="depName" id="depName" placeholder="Department Name *" required><br/>   
+            <input type="text"  name="depAddress" id="depAddress" placeholder="Address *" required><br/>
+            <input type="text"  name="depPhone" id="depPhone" placeholder="Phone xxx-xxx-xxxx *" required> <br/><br/>
+
+            <button  class="button" onclick="createDepartment();">Register</button>
+            <br />
+            <p id="departmentCreated"></p>
+        </div>
+
+        <div id="registerP">
+            <p>Position</p>
+            <input type="text"  name="posName" id="posName" placeholder="Position Name *" required><br/><br/>  
+
+            <button class="button" onclick="createPosition();">Register</button>
+
+            <p id="positionCreated"></p>
+        </div>
+
+        <div id="registerS">
+            <p>Seniority Level</p>
+            <input type="text"  name="senName" id="senName" placeholder="Seniority Level Name *" required><br/><br/>   
+
+            <button class="button" onclick="createSeniority();">Register</button>
+            <br />
+            <p id="seniorityCreated"></p>
+        </div>
+    </section>
+
+
+    <section id="search">
+        <h2>Search:</h2>
+        <ul>
+            <li onclick="display('fetchE', 'fetchD', 'fetchP', 'fetchS');">employees</li>
+            <li onclick="display('fetchD', 'fetchE', 'fetchP', 'fetchS');">departments</li>
+            <li onclick="display('fetchP', 'fetchE', 'fetchD', 'fetchS');">positions</li>
+            <li onclick="display('fetchS', 'fetchE', 'fetchD', 'fetchP');">seniority levels</li>
+        </ul>
+
+        <div id="fetchE">
+            <p>Employees</p>
+            <button class="button" onclick="getAllEmployees();">Fetch all employees</button><br/>
+            <button class="button" onclick="getManagers();">Fetch all managers</button><br/><br/>
+            <input type="text"  name="departName" id="departName" placeholder="Department Name *" required><br/>
+            <button class="button" onclick="getManagerByDepName();">Find manager by department name</button><br/><br/>
+            <input type="text"  name="employeeId" id="employeeId" placeholder="ID *" required><br/>
+            <button class="button" onclick="getEmployeeById();">Find employee by id</button><br/><br/>
+            <input type="text"  name="lName" id="lName" placeholder="Last name *" required><br/>
+            <button class="button" onclick="getEmployeeByName();">Find employee by last name</button><br/><br/>
+            
+            <table id="employeesFetched"></table>
+
+        </div>
+
+        <div id="fetchD">
+            <p>Departments</p>
+            <button class="button" onclick="getAllDepartments();">Fetch all departments</button><br/><br/>
+            <input type="text"  name="dId" id="dId" placeholder="ID *" required><br/>
+            <button class="button" onclick="getDepartmentById();">Find department by id</button><br/><br/>
+            <input type="text"  name="dName" id="dName" placeholder="Department name *" required><br/>
+            <button class="button" onclick="getDepartmentByName();">Find department by name</button><br/><br/>
+            <table id="departmentsFetched"></table>
+        </div>
+
+        <div id="fetchP">
+            <p>Positions</p>
+            <button class="button" onclick="getAllPositions();">Fetch all positions</button><br/><br/>
+            <input type="text"  name="pId" id="pId" placeholder="ID *" required><br/>
+            <button class="button" onclick="getPositionById();">Find position by id</button><br/><br/>
+            <table id="positionsFetched"></table>
+        </div>
+
+        <div id="fetchS">
+            <p>Seniority Levels</p>
+            <button class="button" onclick="getAllSeniorities();">Fetch all seniority levels</button><br/><br/>
+            <input type="text"  name="sId" id="sId" placeholder="ID *" required><br/>
+            <button class="button" onclick="getSeniorityById();">Find seniority by id</button><br/><br/>
+            <table id="senioritiesFetched"></table>
+        </div>
+
+    </section>
+
+    <section id="update">
+        <h2>Update:</h2>
+        <ul>
+            <li onclick="display('updateE', 'updateD', 'updateP', 'updateS');">employees</li>
+            <li onclick="display('updateD', 'updateE', 'updateP', 'updateS');">departments</li>
+            <li onclick="display('updateP', 'updateE', 'updateD', 'updateS');">positions</li>
+            <li onclick="display('updateS', 'updateE', 'updateD', 'updateP');">seniority levels</li>
+        </ul>
+
+        <div id="updateE">
+            <p>Employee</p>
+            <input type="text"  name="idU" id="idU" placeholder="Enter ID *" required><br/>
+            <button  class="button" onclick="getEmployeeByIdU();">Fetch Employee</button><br/><br/><br/>
+            <input type="text"  name="firstnameU" id="firstnameU" placeholder="First Name *" required><br/>   
+            <input type="text"  name="lastnameU" id="lastnameU" placeholder="Last Name *" required><br/>
+            <input type="text"  name="startDateU" id="startDateU" placeholder="Start Date dd-mm-yyyy" required> <br/>
+            <input type="text"  name="endDateU" id="endDateU" placeholder="End Date dd-mm-yyyy" required> <br/>
+            <input type="text"  name="addressU" id="addressU" placeholder="Address *" required><br/>
+            <input type="text"  name="phoneU" id="phoneU" placeholder="Phone xxx-xxx-xxxx *" required><br/>
+            <input type="text" id="departmentIdU" name="departmentIdU" placeholder="Department id *"><br/>
+            <input type="text" id="positionIdU" name="positionIdU" placeholder="Positions id *"><br/>
+            <input type="text" id="seniorityIdU" name="seniorityIdU" placeholder="Seniority id *"><br/>
+            <button  class="button" onclick="updatedEmployee();">Update</button>
+            <br />
+
+            <p id="employeeUpdated"></p>
+    </div>
+
+    <div id="updateD">
+        <p>Department</p>
+        <input type="text"  name="depIdU" id="depIdU" placeholder="Enter ID *" required><br/>
+        <button  class="button" onclick="getDepartmentByIdU();">Fetch Department</button><br/><br/><br/>
+        <input type="text"  name="depNameU" id="depNameU" placeholder="Department Name *" required><br/>   
+        <input type="text"  name="depAddressU" id="depAddressU" placeholder="Address *" required><br/>
+        <input type="text"  name="depPhoneU" id="depPhoneU" placeholder="Phone xxx-xxx-xxxx *" required> <br/><br/>
+
+        <button  class="button" onclick="updatedDepartment();">Update</button>
+        <br />
+        <p id="departmentUpdated"></p>
+    </div>
+
+    <div id="updateP">
+        <p>Position</p>
+        <input type="text"  name="posIdU" id="posIdU" placeholder="Enter ID *" required><br/>
+        <button  class="button" onclick="getPositionByIdU();">Fetch Position</button><br/><br/><br/>
+        <input type="text"  name="posNameU" id="posNameU" placeholder="Position Name *" required><br/><br/>  
+
+        <button class="button" onclick="updatedPosition();">Update</button>
+
+        <p id="positionUpdated"></p>
+    </div>
+
+    <div id="updateS">
+        <p>Seniority Level</p>
+        <input type="text"  name="senIdU" id="senIdU" placeholder="Enter ID *" required><br/>
+        <button  class="button" onclick="getSeniorityByIdU();">Fetch Seniority level</button><br/><br/><br/>
+        <input type="text"  name="senNameU" id="senNameU" placeholder="Seniority Level Name *" required><br/><br/>   
+
+        <button class="button" onclick="updatedSeniority();">Update</button>
+        <br />
+        <p id="seniorityUpdated"></p>
+    </div>
+    </section>
+
+
+    <section id="delete">
+        <h2>Delete:</h2>
+        <ul>
+            <li onclick="display('deleteE', 'deleteD', 'deleteP', 'deleteS');">employees</li>
+            <li onclick="display('deleteD', 'deleteE', 'deleteP', 'deleteS');">departments</li>
+            <li onclick="display('deleteP', 'deleteE', 'deleteD', 'deleteS');">positions</li>
+            <li onclick="display('deleteS', 'deleteE', 'deleteD', 'deleteP');">seniority levels</li>
+        </ul>
+
+        <div id="deleteE">
+            <p>Employee</p>
+            <input type="text"  name="idD" id="idD" placeholder="Enter ID *" required><br/><br/>
+            <button  class="button" onclick="deletedEmployee();">Delete</button>
+            <br />
+
+            <p id="employeeDeleted"></p>
+        </div>
+
+        <div id="deleteD">
+            <p>Department</p>
+            <input type="text"  name="depIdD" id="depIdD" placeholder="Enter ID *" required><br/><br/>
+            <button  class="button" onclick="deletedDepartment();">Delete</button>
+            <br />
+
+            <p id="departmentDeleted"></p>
+        </div>
+
+        <div id="deleteP">
+            <p>Position</p>
+            <input type="text"  name="posIdD" id="posIdD" placeholder="Enter ID *" required><br/><br/>  
+            <button class="button" onclick="deletedPosition();">Delete</button>
+
+            <p id="positionDeleted"></p>
+        </div>
+
+        <div id="deleteS">
+            <p>Seniority Level</p>
+            <input type="text"  name="senIdD" id="senIdD" placeholder="Enter ID *" required><br/><br/>   
+            <button class="button" onclick="deletedSeniority();">Delete</button>
+            
+            <p id="seniorityDeleted"></p>
+        </div>
+    </section>
+
+    <footer>
+        <p style="color:white; padding-top:10px;">&#169; 2022 All rights Reserved</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+</html>
